@@ -1,2 +1,2 @@
 # Maze_Project_Ros
-Robot Programmin project
+Robot Programming project
