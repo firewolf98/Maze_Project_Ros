@@ -4,7 +4,7 @@
 
 <launch>
   <!-- Arguments that can be passed in from the CLI, for example model:=waffle -->
-  <arg name="model" default="burger_for_autorace" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="model" default="waffle" doc="model type [burger, waffle, waffle_pi]"/>
   <arg name="robot_name" default="turtle_1"/>
   <arg name="pos_x" default="2.5"/>
   <arg name="pos_y" default="3.0"/>
