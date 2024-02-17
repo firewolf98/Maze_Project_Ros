@@ -7,6 +7,7 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from tf import transformations
 from std_msgs.msg import String
+from maze_project.srv import SetVelocity, SetVelocityResponse
 import time
 PI = 3.14
 
@@ -65,20 +66,31 @@ def turnCCW(vel_msg, velocity_publisher, t0, current_angle, turningSpeed, angle)
 		current_angle = angular_speed*(t1-t0)#calculates distance\
 		time.sleep(1)#stop the robot for 1 second
 		
+def handle_set_velocity(req):
+    vel_msg.linear.x = req.linear_speed
+    vel_msg.angular.z = req.angular_speed
+    velocity_publisher.publish(vel_msg)
+    rospy.loginfo("Robot velocity set - Linear: %f, Angular: %f", req.linear_speed, req.angular_speed)
+    return SetVelocityResponse(success=True)
+
 def escapeMaze():
 	rospy.init_node('escapeMaze', anonymous=True)
+	global velocity_publisher
 	velocity_publisher = rospy.Publisher('cmd_vel', Twist,queue_size=10)
-	vel_msg = Twist()
+	#vel_msg = Twist()
 	print("Let's move the robot")  
 	#define the local speed 
 	speed = 0.2   #define the distance
 	distance = [0.02, 0.28, 0.4]   #set all the linear and angular motion of each dimension to zero				
-	vel_msg.linear.x = 0
-	vel_msg.linear.y = 0
-	vel_msg.linear.z = 0
-	vel_msg.angular.x = 0
-	vel_msg.angular.y = 0
-	vel_msg.angular.z = 0
+	#vel_msg.linear.x = 0
+	#vel_msg.linear.y = 0
+	#vel_msg.linear.z = 0
+	#vel_msg.angular.x = 0
+	#vel_msg.angular.y = 0
+	#vel_msg.angular.z = 0
+	rospy.Service('set_velocity', SetVelocity, handle_set_velocity)
+	global vel_msg
+	vel_msg = Twist()
 
 	while not rospy.is_shutdown():
 		no_right_wall = None #define the variable to determine the existance of the front wall

@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -54,11 +55,15 @@ catkin_python_setup()
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
+add_service_files(
+  FILES
+  SetVelocity.srv
 #   Service1.srv
 #   Service2.srv
-# )
+)
+
+generate_messages()
+catkin_package(CATKIN_DEPENDS message_runtime)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -161,6 +166,7 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
   scripts/maze_explorer.py
+  scripts/set_velocity_client.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
