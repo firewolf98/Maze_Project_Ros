@@ -3,7 +3,7 @@
 A robot that explores a maze.
 
 
-![alt text](<documentation/Home.png>)
+![alt text](<documentation/World.png>)
 
 ## 📌 Description
 
@@ -46,6 +46,8 @@ To activate the environment, run:
 ```sh
 conda activate "env_name"
 ```
+
+You can follow the guide in _documentation/Presentazione_ to configure and start the project.
 
 ## 📜 Authors
 
